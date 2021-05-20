@@ -1,8 +1,8 @@
 import "./App.css";
 import { useReducer } from "react";
-import { quizData } from "./data/quizData";
-import { Option, Question } from "./data/quizData.types";
-import { initialState, scoreReducer } from "./reducer/scoreReducer";
+import { quizData } from "../data/quizData";
+import { Option, Question } from "../data/quizData.types";
+import { initialState, scoreReducer } from "../reducer/scoreReducer";
 
 function App() {
   const [state, dispatch] = useReducer(scoreReducer, initialState);
@@ -13,18 +13,18 @@ function App() {
         <div key={idx}>
           <p>{question.text}</p>
           <ul className="list">
-            {question.options.map((j: Option,index) => (
+            {question.options.map((j: Option, index) => (
               <li className="list-item" key={index}>
                 <input
                   onChange={() =>
                     j.isRight
                       ? dispatch({
                           type: "INCREMENT_SCORE",
-                          payload: question.points,
+                          payload: { score: question.points, id: "1" },
                         })
                       : dispatch({
                           type: "DECREMENT_SCORE",
-                          payload: question.points,
+                          payload: { score: question.points, id: "1" },
                         })
                   }
                   type="radio"

@@ -1,6 +1,10 @@
+export type SCORE_PAYLOAD = {
+  id: string;
+  score: number;
+};
 export type ACTIONTYPE =
-  | { type: "INCREMENT_SCORE"; payload: number }
-  | { type: "DECREMENT_SCORE"; payload: number };
+  | { type: "INCREMENT_SCORE"; payload: SCORE_PAYLOAD }
+  | { type: "DECREMENT_SCORE"; payload: SCORE_PAYLOAD };
 
 export const initialState = {
   score: 0,
@@ -11,10 +15,10 @@ export const scoreReducer = (
 ) => {
   switch (action.type) {
     case "INCREMENT_SCORE":
-      return { ...state, score: state.score + action.payload };
+      return { ...state};
 
     case "DECREMENT_SCORE":
-      return { ...state, score: state.score - action.payload };
+      return { ...state};
     default:
       return state;
   }
