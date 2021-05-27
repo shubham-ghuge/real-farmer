@@ -1,0 +1,26 @@
+:root {
+  --width: 0px;
+  --transform: -6rem;
+}
+body {
+  font-family: "Inter", sans-serif;
+}
+.App {
+  display: grid;
+  transition: all 0.5s;
+  grid-template-areas: "nav main";
+  grid-template-columns: var(--width) 1fr;
+}
+.App .side-nav {
+  grid-area: nav;
+  transform: translateX(var(--transform));
+}
+.App main {
+  grid-area: main;
+}
+/* @media all and (min-width: 600px) {
+  .App {
+    --width: 90px;
+    --transform: 0;
+  }
+} */
