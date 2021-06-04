@@ -44,7 +44,7 @@ function Header(prop: HeaderType) {
           </svg>
         </span>
       </button>
-      <Link to="/">Log in</Link>
+      <button>Log in</button>
       <Link to="/" className="cta">
         Join For free
         <span>

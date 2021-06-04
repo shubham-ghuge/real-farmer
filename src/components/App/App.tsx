@@ -1,24 +1,19 @@
-import React, { useEffect, useState } from "react";
 import "./App.css";
 import "../utils.css";
-import Sidebar from "../Sidebar/Sidebar";
-import Header from "../Header/Header";
+import { Routes, Route } from "react-router-dom";
+import Home from "../../pages/Home";
+import Quiz from "../../pages/Quiz";
+import Dashboard from "../../pages/Dashboard";
 
 function App() {
-  const [isMenuVisible, setMenuVisible] = useState(false);
-
-  useEffect(() => {
-    if (window.innerWidth >= 600) {
-      setMenuVisible(true);
-    }
-  }, []);
   return (
-    <div className={`App ${isMenuVisible ? "show" : ""}`}>
-      <Sidebar />
-      <main>
-        <Header isVisible={isMenuVisible} setFunction={setMenuVisible} />
-      </main>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/quiz/:quizId" element={<Quiz />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </>
   );
 }
 
