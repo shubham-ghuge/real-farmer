@@ -2,14 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App/App";
 import { BrowserRouter as Router } from "react-router-dom";
-import { AuthContext } from "./contexts/AuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <AuthContext.Provider value={{ token: "aaa" }}>
+      <AuthProvider>
         <App />
-      </AuthContext.Provider>
+      </AuthProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
