@@ -1,11 +1,8 @@
-import Login from "../components/Login/Login";
-import { UseAuthContext } from "../contexts/AuthContext";
+import Form from "../components/Form/Form";
 export default function Home() {
-  const data = UseAuthContext();
-  console.log(data);
   return (
     <>
-      <Login />
+      <Form />
     </>
   );
 }

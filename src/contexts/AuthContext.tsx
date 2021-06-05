@@ -1,21 +1,17 @@
 import React, { useContext, createContext } from "react";
 
 type User = {
-  token: string;
+  token: string | null;
 };
 
-export const AuthContext = createContext({ token: "aa" });
+export const AuthContext = createContext<User>({} as User);
 
-export function AuthProvider({
-  children,
-}: {
-  children: React.ReactChild;
-}) {
+export function AuthProvider({ children }: { children: React.ReactChild }) {
   return (
-    <AuthContext.Provider value={{ token: "aaa" }}>
+    <AuthContext.Provider value={{ token: null }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
-export const UseAuthContext = (): User => useContext(AuthContext);
+export const useAuthContext = (): User => useContext(AuthContext);
