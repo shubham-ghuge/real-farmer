@@ -34,6 +34,11 @@
   flex-direction: column;
 }
 
+.btn-disabled{
+  background-color: #5653ff70!important;
+  pointer-events: none;
+}
+
 .container {
   margin-top: 60px;
   padding: 2rem var(--p-3) 0;

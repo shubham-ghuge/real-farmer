@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />``
+        <Route path="/" element={<Home />} />
         <PrivateRoute path="/quiz/:quizId" element={<Quiz />} />
         <PrivateRoute path="/dashboard" element={<Dashboard />} />
       </Routes>

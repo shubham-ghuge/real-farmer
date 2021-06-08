@@ -1,11 +1,12 @@
-export type Option = {
+export type OptionType = {
   text: string;
+  isSelected?: boolean;
   isRight: boolean;
 };
 
-export type Question = {
+export type QuestionType = {
   text: string;
-  options: Option[];
+  options: OptionType[];
   points: number;
   note?: string;
 };
@@ -13,9 +14,9 @@ export type Question = {
 export type Quiz = {
   quizId: string;
   quizName: string;
-  question: Question[];
+  questions: QuestionType[];
 };
 
-export type QuizData = {
-  quizDb: Quiz[];
+export type QuizDataType = {
+  quizDb: Quiz;
 };
