@@ -15,6 +15,9 @@
   border-radius: var(--br-1);
   margin-bottom: var(--p-1);
 }
+.quiz .result .option {
+  padding: var(--p-2) var(--p-3);
+}
 .quiz .option input[type="radio"] {
   cursor: pointer;
 }
@@ -27,6 +30,12 @@
   color: #2320cc;
   outline: 1px solid #2320cc;
 }
+.quiz .result .option:hover:not(.chosen, .correct) {
+  transition: all 0.3s;
+  color: inherit;
+  outline: none;
+}
+
 .option + .selected {
   color: #2320cc;
   outline: 1px solid #2320cc;
@@ -36,7 +45,6 @@
   align-self: flex-end;
   padding: var(--p-2) !important;
 }
-.quiz .btn-success:hover svg,
 .quiz .cta:hover svg {
   animation: backAndForth 0.3s forwards;
 }
@@ -62,7 +70,7 @@
   outline: 1px solid var(--c-success-200);
 }
 .quiz .result .note {
-  font-size: .9rem;
+  font-size: 0.9rem;
   margin-top: var(--p-3);
   color: var(--c-primary-300);
 }

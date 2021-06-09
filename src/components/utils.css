@@ -8,6 +8,10 @@
   --transform: 0;
 }
 
+.not-allowed {
+  cursor: not-allowed;
+}
+
 .mx-auto {
   margin: 0 auto;
 }
@@ -34,8 +38,8 @@
   flex-direction: column;
 }
 
-.btn-disabled{
-  background-color: #5653ff70!important;
+.btn-disabled {
+  background-color: #5653ff70 !important;
   pointer-events: none;
 }
 

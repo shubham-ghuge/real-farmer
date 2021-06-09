@@ -4,7 +4,7 @@ import { questions } from "../data/quizData";
 export type ACTIONTYPE =
   | {
       type: "CHANGE_QUESTION";
-      payload: { questionIndex: number; userAction: "next" | "prev" };
+      payload: { questionIndex: number };
     }
   | {
       type: "MARK_ANSWER";
@@ -33,11 +33,11 @@ export const initialState = {
 export const quizReducer = (state: InitialStateType, action: ACTIONTYPE) => {
   switch (action.type) {
     case "CHANGE_QUESTION":
-      let { questionIndex, userAction } = action.payload;
+      let { questionIndex } = action.payload;
+
       return {
         ...state,
-        currentQuestion:
-          userAction === "next" ? questionIndex + 1 : questionIndex - 1,
+        currentQuestion: questionIndex + 1,
       };
 
     case "MARK_ANSWER":

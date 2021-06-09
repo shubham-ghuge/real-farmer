@@ -7,10 +7,7 @@ export default function Result() {
 
   const questionCopy = quizQuestions;
 
-  console.log(userAnswers);
-
   userAnswers.map((item) => {
-    console.log(questionCopy[item.question].options[item.answer].isSelected);
     return (questionCopy[item.question].options[item.answer].isSelected = true);
   });
 
@@ -19,15 +16,17 @@ export default function Result() {
       {questionCopy.map((question, index) => {
         return (
           <div className="mb-4" key={index}>
-            <h2 className="mb-4">{question.text}</h2>
+            <h2 className="mb-4">
+              {index + 1}. {question.text}
+            </h2>
             <div className="flex-column">
               {question.options.map((option, idx) => (
                 <label
+                  key={idx.toString()}
                   className={`option ${option.isRight ? "correct" : ""} ${
                     option.isSelected !== undefined ? "chosen" : ""
                   }`}
                 >
-                  <input type="radio" name="test" disabled />
                   {option.text}
                 </label>
               ))}

@@ -6,6 +6,7 @@ export default function Quiz() {
   const {
     initialState: { quizQuestions, currentQuestion, score },
   } = useQuizContext();
+
   return (
     <section className="container d-flex jc-center">
       <div className="quiz">
