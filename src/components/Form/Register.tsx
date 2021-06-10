@@ -1,81 +1,16 @@
-import axios, { AxiosError } from "axios";
 import { useReducer, useState } from "react";
-
-type UserRegisterResponse = {
-  status: boolean;
-  message: string;
-};
-
-type InitialFormState = {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  error: string[];
-};
-
-type ActionFormTypes =
-  | {
-      type: "SET_VALUE";
-      payload: { keyToBeUpdate: string; userInput: string };
-    }
-  | { type: "SET_ERROR"; payload: { errors: string[] } }
-  | {
-      type: "SUBMIT_FORM";
-    };
+import { useNavigate } from "react-router";
+import formReducer, { initialState } from "./formReducer";
+import registerUser, { UserRegisterResponse } from "./register.service";
 
 export default function Form() {
   const [data, setData] = useState<UserRegisterResponse>(
     {} as UserRegisterResponse
   );
-  function formReducer(state: InitialFormState, action: ActionFormTypes) {
-    switch (action.type) {
-      case "SET_VALUE":
-        const { keyToBeUpdate, userInput } = action.payload;
-        return { ...state, [keyToBeUpdate]: userInput };
 
-      case "SET_ERROR":
-        const { errors } = action.payload;
-        return { ...state, error: errors };
+  let navigate = useNavigate();
 
-      case "SUBMIT_FORM":
-        return { ...state };
-      default:
-        return { ...state };
-    }
-  }
-
-  const [state, dispatch] = useReducer(formReducer, {
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    error: ["", ""],
-  });
-
-  async function registerUser(
-    email: string,
-    password: string
-  ): Promise<UserRegisterResponse> {
-    try {
-      const response = await axios.post<UserRegisterResponse>(
-        "https://authentication.shubhamghuge.repl.co/users/register",
-        {
-          email,
-          password,
-        }
-      );
-      return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const serverError = error as AxiosError<UserRegisterResponse>;
-        if (serverError && serverError.response) {
-          return serverError.response.data;
-        }
-      }
-      return { status: false, message: "something went wrong!" };
-    }
-  }
+  const [state, dispatch] = useReducer(formReducer, initialState);
 
   function setInput(event: React.FormEvent<HTMLInputElement>) {
     return dispatch({
@@ -87,9 +22,8 @@ export default function Form() {
     });
   }
 
-  async function submitFormData(event: React.SyntheticEvent) {
-    event.preventDefault();
-    const errorList = [];
+  function validateInput() {
+    let errorList = [];
     if (state.name.length < 2) {
       errorList.push("Name must be atleast 2 characters");
     }
@@ -99,14 +33,29 @@ export default function Form() {
     if (state.password !== state.confirmPassword) {
       errorList.push("Passwords Does not match");
     }
-    if (errorList !== null) {
+    if (errorList.length !== 0) {
       dispatch({ type: "SET_ERROR", payload: { errors: errorList } });
+      return false;
     }
-    const data: UserRegisterResponse = await registerUser(
-      state.email,
-      state.password
-    );
-    return setData(data);
+    return true;
+  }
+
+  async function submitFormData(event: React.SyntheticEvent) {
+    event.preventDefault();
+    const validations = validateInput();
+    if (validations) {
+      dispatch({ type: "SET_ERROR", payload: { errors: [] } });
+      dispatch({ type: "SET_LOADING", payload: { status: true } });
+      const data: UserRegisterResponse = await registerUser(
+        state.email,
+        state.password
+      );
+      dispatch({ type: "SET_LOADING", payload: { status: false } });
+      setData(data);
+      return setTimeout(() => {
+        navigate("/dashboard");
+      }, 1000);
+    }
   }
 
   return (
@@ -157,7 +106,7 @@ export default function Form() {
           required
         />
         <button type="submit" className="btn-success">
-          Submit
+          {state.loading ? "loading..." : "Submit"}
         </button>
       </form>
     </>
