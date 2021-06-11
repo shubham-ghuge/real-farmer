@@ -1,12 +1,10 @@
 import { useReducer, useState } from "react";
 import { useNavigate } from "react-router";
 import formReducer, { initialState } from "./formReducer";
-import registerUser, { UserRegisterResponse } from "./register.service";
+import registerUser, { FormResponse } from "./register.service";
 
 export default function Form() {
-  const [data, setData] = useState<UserRegisterResponse>(
-    {} as UserRegisterResponse
-  );
+  const [data, setData] = useState<FormResponse>({} as FormResponse);
 
   let navigate = useNavigate();
 
@@ -46,12 +44,12 @@ export default function Form() {
     if (validations) {
       dispatch({ type: "SET_ERROR", payload: { errors: [] } });
       dispatch({ type: "SET_LOADING", payload: { status: true } });
-      const data: UserRegisterResponse = await registerUser(
-        state.email,
-        state.password
-      );
+      const { name, email, password } = state;
+      const data: FormResponse = await registerUser(email, password, name);
       dispatch({ type: "SET_LOADING", payload: { status: false } });
-      setData(data);
+      if ("message" in data) {
+        setData(data);
+      }
       return setTimeout(() => {
         navigate("/dashboard");
       }, 1000);
