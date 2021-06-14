@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./form.css";
+import "../utils.css";
 import { useNavigate } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { Email, Hide, Key, Loader, Show } from "../Icons";

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useQuizContext } from "../../contexts/QuizContext";
 
 export default function Result() {
@@ -13,6 +14,29 @@ export default function Result() {
 
   return (
     <div className="result">
+      <Link to="/dashboard" className="btn-primary cta m-4 mb-0">
+        Get Your Certificate
+      </Link>
+      <div className="quiz-stats">
+        <div className="grid-item one">
+          <h2>Your Score:</h2>
+          <div className="score">
+            <span className="count"> 80% </span>
+          </div>
+          <p className="markers">selected Question</p>
+          <p className="markers">correct answer</p>
+        </div>
+        <div>
+          <div className="grid-item cube">
+            <h2>Total Questions:</h2>
+            <span className="count">50</span>
+          </div>
+          <div className="grid-item cube">
+            <h2>Correct Answers:</h2>
+            <span className="count">30</span>
+          </div>
+        </div>
+      </div>
       {questionCopy.map((question, index) => {
         return (
           <div className="mb-4" key={index}>
