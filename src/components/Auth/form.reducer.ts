@@ -3,8 +3,9 @@ export type InitialFormState = {
   email: string;
   password: string;
   confirmPassword: string;
-  error: string[];
   loading: boolean;
+  visiblePassword: boolean;
+  visibleConfirmPassword: boolean;
 };
 
 export type ActionFormTypes =
@@ -16,15 +17,17 @@ export type ActionFormTypes =
       type: "SET_LOADING";
       payload: { status: boolean };
     }
-  | { type: "SET_ERROR"; payload: { errors: string[] } };
+  | { type: "SET_ERROR"; payload: { key: string; isError: boolean } }
+  | { type: "SET_VISIBILITY"; payload: { prop: string; value: boolean } };
 
 export const initialState = {
   name: "",
   email: "",
   password: "",
   confirmPassword: "",
-  error: ["", ""],
   loading: false,
+  visiblePassword: false,
+  visibleConfirmPassword: false,
 };
 
 export default function formReducer(
@@ -36,13 +39,14 @@ export default function formReducer(
       const { keyToBeUpdate, userInput } = action.payload;
       return { ...state, [keyToBeUpdate]: userInput };
 
-    case "SET_ERROR":
-      const { errors } = action.payload;
-      return { ...state, error: errors };
-
     case "SET_LOADING":
       const { status } = action.payload;
       return { ...state, loading: status };
+
+    case "SET_VISIBILITY":
+      const { prop, value } = action.payload;
+      return { ...state, [prop]: !value };
+
     default:
       return { ...state };
   }

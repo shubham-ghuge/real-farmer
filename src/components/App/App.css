@@ -18,9 +18,32 @@ body {
 .App main {
   grid-area: main;
 }
-/* @media all and (min-width: 600px) {
-  .App {
-    --width: 90px;
-    --transform: 0;
+.user-auth {
+  --current-color: #2320cc;
+}
+.user-auth .cta {
+  width: 315px;
+  border: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: capitalize;
+  padding: var(--p-3) var(--p-2);
+}
+.user-auth .text-error {
+  align-self: flex-start;
+  margin: var(--p-2) 0;
+  color: var(--current-color);
+}
+@media all and (min-width: 600px) {
+  .user-auth {
+    width: 30vw;
+    margin: 0 auto;
+    padding: 2rem 0;
   }
-} */
+  .user-auth .cta {
+    width: 23vw;
+  }
+}

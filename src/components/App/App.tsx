@@ -5,6 +5,7 @@ import { PrivateRoute } from "../PrivateRoute/PrivateRoute";
 import Home from "../../pages/Home";
 import Quiz from "../../pages/Quiz";
 import Dashboard from "../../pages/Dashboard";
+import Certificate from "../../pages/Certificate";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <PrivateRoute path="/quiz/:quizId" element={<Quiz />} />
+        <PrivateRoute path="/certificates" element={<Certificate />} />
         <PrivateRoute path="/dashboard" element={<Dashboard />} />
       </Routes>
     </>

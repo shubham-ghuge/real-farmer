@@ -17,7 +17,7 @@ function Sidebar() {
           </svg>
           Your Quiz
         </Link>
-        <Link to="/">
+        <Link to="/certificates">
           <svg
             width="24"
             height="24"

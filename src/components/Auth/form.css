@@ -1,0 +1,56 @@
+.error {
+  --current-color: var(--c-danger-200) !important;
+}
+.pos-top-right {
+  position: absolute;
+  top: 10%;
+  right: 0%;
+  left: 0;
+  margin: 0 auto;
+}
+.icon-input {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  outline: 1px solid #adadb4;
+  border-radius: var(--br-1);
+  position: relative;
+  width: 315px;
+}
+.icon-input .icon {
+  margin: auto var(--p-2);
+  height: 1.5rem;
+  width: 1.5rem;
+}
+.icon-input button {
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+}
+.icon-input input {
+  font-family: "Inter";
+  padding: var(--p-3) 0;
+  flex-basis: 1;
+  border: 0;
+}
+.icon-input input:focus {
+  outline: 0;
+}
+.icon-input:focus-within {
+  background-color: #fff;
+  outline: 2px solid var(--current-color);
+}
+.icon-input:focus-within .icon {
+  color: var(--current-color);
+}
+.icon-input:hover {
+  background-color: #e5e5e5;
+}
+.icon-input:hover input {
+  background-color: #e5e5e5;
+}
+@media all and (min-width: 600px) {
+  .icon-input {
+    width: 23vw;
+  }
+}
