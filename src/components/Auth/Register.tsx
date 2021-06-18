@@ -1,13 +1,14 @@
 import { useReducer, useState } from "react";
 import { useNavigate } from "react-router";
 import formReducer, { initialState } from "./form.reducer";
-import registerUser, { FormResponse } from "./auth.service";
+import registerUser from "../../services/auth.service";
 import { Email, Hide, Key, User, Show, Warning, Loader } from "../Icons";
 import { Alert } from "../Alert";
-import checkError from "./validation.service";
+import checkError from "../../services/validation.service";
+import { AuthFormResponse } from "../../data/quizData.types";
 
 export default function Form() {
-  const [data, setData] = useState<FormResponse>({} as FormResponse);
+  const [data, setData] = useState<AuthFormResponse>({} as AuthFormResponse);
   let navigate = useNavigate();
   const [state, dispatch] = useReducer(formReducer, initialState);
 
@@ -28,7 +29,7 @@ export default function Form() {
       name.length >= 2 && password.length >= 6 && password === confirmPassword;
     if (validate) {
       dispatch({ type: "SET_LOADING", payload: { status: true } });
-      const data: FormResponse = await registerUser(email, password, name);
+      const data: AuthFormResponse = await registerUser(email, password, name);
       dispatch({ type: "SET_LOADING", payload: { status: false } });
       if ("message" in data) {
         setData(data);

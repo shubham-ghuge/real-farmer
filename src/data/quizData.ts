@@ -1,8 +1,9 @@
 import "./quizData.types";
-import { QuizDataType } from "./quizData.types";
+import { QuizDataResponse } from "./quizData.types";
 
-const quizData: QuizDataType = {
-  quizDb: {
+const quizData: QuizDataResponse = {
+  success: true,
+  quiz: {
     quizId: "1",
     quizName: "Plant Breeding and Genetics",
     questions: [
@@ -99,6 +100,6 @@ const quizData: QuizDataType = {
   },
 };
 
-const { quizDb } = quizData;
+const { quiz: quizDb } = quizData;
 const { questions } = quizDb;
 export { quizData, quizDb, questions };

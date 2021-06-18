@@ -17,6 +17,7 @@ const QuizContext = createContext<ContextDefaultValueType>(
 
 export const QuizProvider = ({ children }: ProviderProp) => {
   const [state, dispatch] = useReducer(quizReducer, initialState);
+
   return (
     <QuizContext.Provider
       value={{

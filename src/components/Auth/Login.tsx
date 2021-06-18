@@ -4,8 +4,11 @@ import "../utils.css";
 import { useNavigate } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { Email, Hide, Key, Loader, Show } from "../Icons";
-import userLogin, { FormResponse } from "./auth.service";
+import userLogin, {
+  setupTokenToAxiosRequests,
+} from "../../services/auth.service";
 import { Alert } from "../Alert";
+import { AuthFormResponse } from "../../data/quizData.types";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -18,14 +21,14 @@ export default function Login() {
   async function loginUser(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    const data: FormResponse = await userLogin(email, password);
+    const data: AuthFormResponse = await userLogin(email, password);
     setLoading(false);
     if (data.success && "token" in data) {
-      console.log(data.token);
       setToken(() => data.token);
+      if (data.token) setupTokenToAxiosRequests(data.token);
       return navigate("/dashboard");
     } else {
-      return setError(data.message);
+      if (data.message) return setError(data.message);
     }
   }
 

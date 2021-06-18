@@ -17,6 +17,34 @@ export type Quiz = {
   questions: QuestionType[];
 };
 
-export type QuizDataType = {
-  quizDb: Quiz;
+export type QuizDataResponse = {
+  success: boolean;
+  quiz: Quiz;
+};
+
+export type BaseFormResponse = {
+  success: boolean;
+  message?: string;
+};
+
+export type AuthFormResponse = BaseFormResponse & {
+  token?: string;
+};
+
+export type QuizNameAndId = BaseFormResponse & {
+  listOfQuizzes?: {
+    id: string;
+    name: string;
+  };
+};
+
+export type QuizResultResponse = BaseFormResponse & {
+  quizCertificateData:
+    | [
+        {
+          name: string;
+          score: number;
+        }
+      ]
+    | [];
 };

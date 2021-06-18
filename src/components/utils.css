@@ -115,11 +115,6 @@
   background-color: #e5e5e5;
 }
 
-@media all and (min-width: 600px) {
-  .icon-input {
-    width: 23vw;
-  }
-}
 .cta {
   display: inline-block;
   background-color: #5553ff !important;

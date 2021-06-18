@@ -1,4 +1,4 @@
-import { ErrorMessage } from "../ErrorMessage";
+import { ErrorMessage } from "../components/ErrorMessage";
 
 export default function checkError(
   value: string,
