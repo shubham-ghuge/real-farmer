@@ -17,16 +17,14 @@ export type Quiz = {
   questions: QuestionType[];
 };
 
-export type QuizDataResponse = {
-  success: boolean;
-  quiz: Quiz;
-};
-
 export type BaseFormResponse = {
   success: boolean;
   message?: string;
 };
 
+export type QuizDataResponse = BaseFormResponse & {
+  quiz?: Quiz;
+};
 export type AuthFormResponse = BaseFormResponse & {
   token?: string;
 };
@@ -39,7 +37,7 @@ export type QuizNameAndId = BaseFormResponse & {
 };
 
 export type QuizResultResponse = BaseFormResponse & {
-  quizCertificateData:
+  quizCertificateData?:
     | [
         {
           name: string;

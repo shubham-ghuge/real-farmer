@@ -17,13 +17,13 @@ export default function Dashboard() {
     }
     test();
   }, []);
-  
+
   return (
     <section className="quiz-grid container">
       <h3 className="heading">Welcome Back, User !</h3>
       <div className="flex-layout">
         {loading ? (
-          <Loader color="text-primary" />
+          <Loader color="c-primary" />
         ) : (
           data &&
           data.map((i) => <Card quizId={i.id} name={i.name} key={i.id} />)

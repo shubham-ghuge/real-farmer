@@ -1,7 +1,7 @@
 import "./quizData.types";
-import { QuizDataResponse } from "./quizData.types";
+import { Quiz } from "./quizData.types";
 
-const quizData: QuizDataResponse = {
+const quizData: { success: boolean; quiz: Quiz } = {
   success: true,
   quiz: {
     quizId: "1",

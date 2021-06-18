@@ -3,7 +3,7 @@ import * as htmlToImage from "html-to-image";
 import logo from "../../assets/logo.svg";
 import download from "downloadjs";
 
-function QuizCertificate() {
+function QuizCertificate({ name, score }: { name: string; score: number }) {
   const onButtonClick = () => {
     var domElement = document.getElementById("certificateDom");
     htmlToImage
@@ -28,9 +28,9 @@ function QuizCertificate() {
         </div>
         <div className="main">
           This certifies that
-          <span>User Name</span>
+          <span>{name}</span>
           has successfully completed the quiz on realfarmer platform with score
-          80%.
+          {score}%.
         </div>
         <div className="footer">
           Verify this certification at

@@ -1,5 +1,8 @@
 import axios from "axios";
-import { QuizDataResponse, QuizNameAndId } from "../data/quizData.types";
+import {
+  QuizDataResponse,
+  QuizNameAndId,
+} from "../data/quizData.types";
 import { requestErrorHandler } from "./utils.service";
 
 async function getQuizInitialData(): Promise<QuizNameAndId> {
@@ -13,7 +16,7 @@ async function getQuizInitialData(): Promise<QuizNameAndId> {
   }
 }
 
-async function getQuizData(quizId: string): Promise<QuizNameAndId> {
+async function getQuizData(quizId: string): Promise<QuizDataResponse> {
   try {
     const response = await axios.get<QuizDataResponse>(
       `https://realfarmer-quiz.herokuapp.com/quiz/${quizId}`

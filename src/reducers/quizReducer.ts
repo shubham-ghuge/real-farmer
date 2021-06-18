@@ -9,7 +9,8 @@ export type ACTIONTYPE =
   | {
       type: "MARK_ANSWER";
       payload: { currentQuestionIndex: number; optionIndex: number };
-    };
+    }
+  | { type: "SET_QUIZ"; payload: { data: QuestionType[] } };
 
 export type Answers = {
   question: number;
@@ -32,6 +33,11 @@ export const initialState = {
 
 export const quizReducer = (state: InitialStateType, action: ACTIONTYPE) => {
   switch (action.type) {
+    case "SET_QUIZ":
+      const { data } = action.payload;
+      
+      return { ...state, quizQuestions: data };
+
     case "CHANGE_QUESTION":
       let { questionIndex } = action.payload;
 

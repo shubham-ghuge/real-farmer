@@ -17,7 +17,7 @@ function App() {
     if (window.innerWidth >= 600) {
       setVisibilityMenu(() => false);
     }
-  }, []);
+  }, [setVisibilityMenu]);
   return (
     <>
       <div className={`App ${visibleMenu ? "show" : ""}`}>
