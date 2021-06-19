@@ -10,7 +10,8 @@ export type ACTIONTYPE =
       type: "MARK_ANSWER";
       payload: { currentQuestionIndex: number; optionIndex: number };
     }
-  | { type: "SET_QUIZ"; payload: { data: QuestionType[] } };
+  | { type: "SET_QUIZ"; payload: { data: QuestionType[] } }
+  | { type: "RESET_QUIZ" };
 
 export type Answers = {
   question: number;
@@ -35,12 +36,20 @@ export const quizReducer = (state: InitialStateType, action: ACTIONTYPE) => {
   switch (action.type) {
     case "SET_QUIZ":
       const { data } = action.payload;
-      
       return { ...state, quizQuestions: data };
+
+    case "RESET_QUIZ":
+      console.log("in reset quiz");
+      return {
+        ...state,
+        quizQuestions: [],
+        currentQuestion: 0,
+        score: 0,
+        userAnswers: [],
+      };
 
     case "CHANGE_QUESTION":
       let { questionIndex } = action.payload;
-
       return {
         ...state,
         currentQuestion: questionIndex + 1,
@@ -50,7 +59,6 @@ export const quizReducer = (state: InitialStateType, action: ACTIONTYPE) => {
       let { currentQuestionIndex, optionIndex } = action.payload;
       const answer =
         state.quizQuestions[currentQuestionIndex].options[optionIndex].isRight;
-
       return {
         ...state,
         userAnswers: [
@@ -61,6 +69,6 @@ export const quizReducer = (state: InitialStateType, action: ACTIONTYPE) => {
       };
 
     default:
-      return state;
+      return { ...state };
   }
 };

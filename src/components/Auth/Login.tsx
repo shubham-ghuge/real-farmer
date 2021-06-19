@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./form.css";
 import "../utils.css";
 import { useNavigate } from "react-router";
@@ -9,6 +9,12 @@ import userLogin, {
 } from "../../services/auth.service";
 import { Alert } from "../Alert";
 import { AuthFormResponse } from "../../data/quizData.types";
+import axios from "axios";
+
+export function logout() {
+  localStorage.removeItem("login");
+  setupTokenToAxiosRequests(null);
+}
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -18,6 +24,36 @@ export default function Login() {
   const [hide, setHide] = useState(false);
   const { setToken } = useAuthContext();
   let navigate = useNavigate();
+
+  function unAuthorizedUser() {
+    const UNAUTHORIZED = 401;
+    axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error?.response?.status === UNAUTHORIZED) {
+          logout();
+          return navigate("/");
+        }
+        return Promise.reject(error);
+      }
+    );
+  }
+
+  useEffect(() => {
+    async function checkUserLoggedIn() {
+      const { isUserLoggedIn, token } = (await JSON.parse(
+        localStorage.getItem("login") as string
+      )) ?? { isUserLoggedIn: false, token: "" };
+      if (isUserLoggedIn) {
+        setToken(() => token);
+        setupTokenToAxiosRequests(token);
+        return navigate("/dashboard");
+      }
+      unAuthorizedUser();
+    }
+    checkUserLoggedIn();
+  }, []);
+
   async function loginUser(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -25,6 +61,10 @@ export default function Login() {
     setLoading(false);
     if (data.success && "token" in data) {
       setToken(() => data.token);
+      window.localStorage.setItem(
+        "login",
+        `${JSON.stringify({ isUserLoggedIn: true, token: data.token })}`
+      );
       if (data.token) setupTokenToAxiosRequests(data.token);
       return navigate("/dashboard");
     } else {

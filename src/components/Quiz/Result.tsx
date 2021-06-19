@@ -1,22 +1,27 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useQuizContext } from "../../contexts/QuizContext";
 
 export default function Result() {
   const {
     initialState: { userAnswers, quizQuestions },
+    dispatch,
   } = useQuizContext();
-
+  let navigate = useNavigate();
   const questionCopy = quizQuestions;
 
   userAnswers.map((item) => {
     return (questionCopy[item.question].options[item.answer].isSelected = true);
   });
+  function resetQuiz() {
+    dispatch({ type: "RESET_QUIZ" });
+    return navigate("/certificates");
+  }
 
   return (
     <div className="result">
-      <Link to="/dashboard" className="btn-primary cta m-4 mb-0">
+      <button onClick={resetQuiz} className="btn-primary cta m-4 mb-0">
         Get Your Certificate
-      </Link>
+      </button>
       <div className="quiz-stats">
         <div className="grid-item one">
           <h2>Your Score:</h2>

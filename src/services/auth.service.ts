@@ -33,7 +33,6 @@ export default async function userLoginAndRegister(
 }
 
 export function setupTokenToAxiosRequests(token: string | null) {
-  console.log(token);
   if (token) {
     return (axios.defaults.headers.common["authorization"] = token);
   }

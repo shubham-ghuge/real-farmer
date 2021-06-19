@@ -13,7 +13,6 @@ export default function Certificate() {
   useEffect(() => {
     async function getData() {
       const { quizCertificateData } = await getUserQuizResult();
-      console.log(quizCertificateData);
       if (quizCertificateData) {
         setCertificateData(quizCertificateData);
       }
