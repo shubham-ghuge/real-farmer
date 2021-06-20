@@ -6,6 +6,7 @@ import { Email, Hide, Key, User, Show, Warning, Loader } from "../Icons";
 import { Alert } from "../Alert";
 import checkError from "../../services/validation.service";
 import { AuthFormResponse } from "../../data/quizData.types";
+import { Link } from "react-router-dom";
 
 export default function Form() {
   const [data, setData] = useState<AuthFormResponse>({} as AuthFormResponse);
@@ -109,7 +110,7 @@ export default function Form() {
                 })
               }
             >
-              {state.visiblePassword ? <Show /> : <Hide />}
+              {state.visiblePassword ? <Hide /> : <Show />}
             </button>
           </div>
           {checkError(state.password, "password")}
@@ -137,7 +138,7 @@ export default function Form() {
                 })
               }
             >
-              {state.visibleConfirmPassword ? <Show /> : <Hide />}
+              {state.visibleConfirmPassword ? <Hide /> : <Show />}
             </button>
           </div>
           {checkError(state.confirmPassword, "confirmPassword", state.password)}
@@ -146,6 +147,12 @@ export default function Form() {
           {state.loading ? <Loader /> : "create account"}
         </button>
       </form>
+      <p className="text-center mt-4">
+        already have an account{" "}
+        <span>
+          <Link to="/">Log In</Link>
+        </span>
+      </p>
     </>
   );
 }

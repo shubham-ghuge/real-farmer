@@ -3,24 +3,33 @@ import { Link } from "react-router-dom";
 import certficateIcon from "../assets/certificate-icon.svg";
 import { QuizCertificate } from "../components/QuizCertificate";
 import { getUserQuizResult } from "../services/user.service";
+import { Loader } from "../components/Icons";
 
 export default function Certificate() {
   type certificateType = {
     name: string;
     score: number;
   };
+  const [loading, setLoading] = useState(false);
   const [certificateData, setCertificateData] = useState<certificateType[]>();
   useEffect(() => {
     async function getData() {
+      setLoading(true);
       const { quizCertificateData } = await getUserQuizResult();
       if (quizCertificateData) {
         setCertificateData(quizCertificateData);
       }
+      return setLoading(false);
     }
     getData();
   }, []);
   return (
     <section className="container">
+      {loading && (
+        <div className="d-flex jc-center ai-center">
+          <Loader color="c-primary p-4" />
+        </div>
+      )}
       {certificateData && certificateData.length === 0 ? (
         <div className="jumbotron">
           <div className="content">

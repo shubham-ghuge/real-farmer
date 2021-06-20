@@ -4,8 +4,10 @@
   flex-direction: column;
   box-sizing: border-box;
   padding: var(--p-4);
+  background-color: #fff;
   width: 95vw;
-  margin: 60px auto;
+  justify-content: center;
+  margin-bottom: var(--p-7);
   outline: 0.5rem solid #2320cc;
 }
 .quiz-certificate .header {
@@ -26,16 +28,19 @@
 .quiz-certificate .main {
   background-color: #f6f6f6;
   display: flex;
-  padding: var(--p-2);
   text-align: center;
+  padding: var(--p-2);
   font-family: "Courier New", Courier, monospace;
   flex-direction: column;
   justify-content: center;
   flex-grow: 1;
 }
-.quiz-certificate .main span {
+.quiz-certificate .main .title {
   font-size: var(--fsz-2);
-  font-weight: 700;
+  font-weight: 600;
+}
+.quiz-certificate .main p{
+  width: 90%;
 }
 .quiz-certificate .footer {
   background-color: #f6f6f6;
@@ -56,11 +61,15 @@
     padding: 2rem;
     font-size: var(--fsz-2);
   }
-  .quiz-certificate .main span {
+  .quiz-certificate .main .title {
     font-size: var(--fsz-4);
   }
   .quiz-certificate .footer {
     font-size: 1rem;
     padding: 0 1rem 1rem;
+  }
+  .quiz-certificate .main p{
+    width: 70%;
+    margin: 0 auto;
   }
 }

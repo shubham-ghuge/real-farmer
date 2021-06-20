@@ -60,7 +60,8 @@
   display: inline-block;
   border-radius: 50%;
   border: 2px solid currentColor;
-  padding: var(--p-2);
+  height: 20px;
+  width: 20px;
   border-right-color: transparent;
   animation: spin 0.4s infinite linear;
 }

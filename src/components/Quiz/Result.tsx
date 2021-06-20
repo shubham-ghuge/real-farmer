@@ -14,7 +14,7 @@ export default function Result() {
   const questionCopy = quizQuestions;
   useEffect(() => {
     async function postResult() {
-      await postQuizResult(score, quizId);
+      await postQuizResult((score / (quizQuestions.length * 5)) * 100, quizId);
     }
     postResult();
   }, []);

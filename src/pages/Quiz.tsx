@@ -15,7 +15,7 @@ export default function Quiz() {
   } = useQuizContext();
   useEffect(() => {
     async function getData() {
-      setLoading(false);
+      setLoading(true);
       const { quiz } = await getQuizData(quizId);
       dispatch({ type: "SET_QUIZ", payload: { data: quiz?.questions } });
       return setLoading(false);
@@ -24,8 +24,12 @@ export default function Quiz() {
   }, []);
 
   return (
-    <section className="">
-      {loading && <Loader color="c-primary" />}
+    <section>
+      {loading && (
+        <div className="d-flex h-90 jc-center ai-center">
+          <Loader color="c-primary p-4" />
+        </div>
+      )}
       {currentQuestion < quizQuestions.length ? (
         <div className="quiz container">
           <Question
@@ -34,9 +38,7 @@ export default function Quiz() {
           />
         </div>
       ) : (
-        <>
-          <Result />
-        </>
+        <Result />
       )}
     </section>
   );

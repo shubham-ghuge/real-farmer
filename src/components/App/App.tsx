@@ -6,32 +6,22 @@ import Home from "../../pages/Home";
 import Quiz from "../../pages/Quiz";
 import Dashboard from "../../pages/Dashboard";
 import Certificate from "../../pages/Certificate";
-import { useEffect } from "react";
-import Sidebar from "../Sidebar/Sidebar";
-import Header from "../Header/Header";
-import { useAuthContext } from "../../contexts/AuthContext";
-
+import { Error } from "../Error";
+import Login from "../Auth/Login";
+import Register from "../Auth/Register";
 function App() {
-  const { visibleMenu, setVisibilityMenu } = useAuthContext();
-  useEffect(() => {
-    if (window.innerWidth >= 600) {
-      setVisibilityMenu(() => false);
-    }
-  }, [setVisibilityMenu]);
   return (
     <>
-      <div className={`App ${visibleMenu ? "show" : ""}`}>
-        <Sidebar />
-        <main>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <PrivateRoute path="/quiz/:quizId" element={<Quiz />} />
-            <PrivateRoute path="/certificates" element={<Certificate />} />
-            <PrivateRoute path="/dashboard" element={<Dashboard />} />
-          </Routes>
-        </main>
-      </div>
+      <Routes>
+        <Route path="" element={<Home />}>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
+        <Route path="*" element={<Error />} />
+        <PrivateRoute path="/quiz/:quizId" element={<Quiz />} />
+        <PrivateRoute path="/certificates" element={<Certificate />} />
+        <PrivateRoute path="/dashboard" element={<Dashboard />} />
+      </Routes>
     </>
   );
 }

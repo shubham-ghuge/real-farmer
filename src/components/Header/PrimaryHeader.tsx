@@ -6,11 +6,11 @@ function PrimaryHeader() {
     <header className="menu jc-space-between">
       <Link to="/" className="logo">
         <img src={logo} alt="logo" />
-        real farmer
+        <span className="d-none d-sm-block">real farmer</span>
       </Link>
       <div style={{ height: "100%" }}>
         <Link to="/">Log in</Link>
-        <Link to="/" className="cta">
+        <Link to="/register" className="cta">
           Join For free
           <span>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">

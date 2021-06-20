@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Correct, Warning } from "../Icons";
 
 type AlertProps = {
@@ -7,11 +8,12 @@ type AlertProps = {
 };
 
 function Alert({ type, heading, message }: AlertProps) {
+  const [expire, setExpiry] = useState(true);
   function setIcon(type: string) {
     switch (type) {
       case "danger":
         return <Warning />;
-        
+
       case "success":
         return <Correct />;
 
@@ -19,7 +21,13 @@ function Alert({ type, heading, message }: AlertProps) {
         return null;
     }
   }
-  return (
+  useEffect(() => {
+    setTimeout(() => {
+      setExpiry((curr) => !curr);
+    }, 3000);
+  }, []);
+
+  return expire ? (
     <div className={`alert-${type} outline-${type} w-sm-30 pos-top-right`}>
       <span>{setIcon(type)}</span>
       <div className="alert-content">
@@ -27,6 +35,6 @@ function Alert({ type, heading, message }: AlertProps) {
         <p className="text-capitalize">{message}</p>
       </div>
     </div>
-  );
+  ) : null;
 }
 export { Alert };

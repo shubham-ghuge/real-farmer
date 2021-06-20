@@ -10,6 +10,7 @@ import userLogin, {
 import { Alert } from "../Alert";
 import { AuthFormResponse } from "../../data/quizData.types";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export function logout() {
   localStorage.removeItem("login");
@@ -54,8 +55,8 @@ export default function Login() {
     checkUserLoggedIn();
   }, []);
 
-  async function loginUser(e: React.FormEvent) {
-    e.preventDefault();
+  async function loginUser(e?: React.FormEvent) {
+    e && e.preventDefault();
     setLoading(true);
     const data: AuthFormResponse = await userLogin(email, password);
     setLoading(false);
@@ -70,6 +71,11 @@ export default function Login() {
     } else {
       if (data.message) return setError(data.message);
     }
+  }
+  function demoLoginUser() {
+    setEmail("shubhamghuge34@gmail.com");
+    setPassword("shubham");
+    return loginUser();
   }
 
   return (
@@ -103,13 +109,26 @@ export default function Login() {
             required
           />
           <button type="button" onClick={() => setHide((curr) => !curr)}>
-            {hide ? <Show /> : <Hide />}
+            {hide ? <Hide /> : <Show />}
           </button>
         </div>
         <button type="submit" className="btn-success cta mb-4">
           {loading ? <Loader /> : "Login"}
         </button>
       </form>
+      <p className="text-center mt-4">
+        don't have an account?
+        <span>
+          <Link to="/register"> Register</Link>
+        </span>
+      </p>
+      <p className="text-center mt-4">
+        <span>
+          <button className="btn-reset link" onClick={demoLoginUser}>
+            {loading ? <Loader /> : "demo login"}
+          </button>
+        </span>
+      </p>
     </>
   );
 }

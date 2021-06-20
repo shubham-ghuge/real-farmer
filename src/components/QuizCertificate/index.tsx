@@ -6,7 +6,7 @@ import download from "downloadjs";
 function QuizCertificate({ name, score }: { name: string; score: number }) {
   const onButtonClick = () => {
     var domElement = document.getElementById("certificateDom");
-    if(domElement)
+    if (domElement)
       htmlToImage
         .toPng(domElement)
         .then(function (dataUrl) {
@@ -17,8 +17,8 @@ function QuizCertificate({ name, score }: { name: string; score: number }) {
         });
   };
   return (
-    <>
-      <button className="pos-top-right btn-primary" onClick={onButtonClick}>
+    <div className="flex-column ai-center">
+      <button className="btn-primary mb-7" onClick={onButtonClick}>
         download certificate
       </button>
 
@@ -29,16 +29,18 @@ function QuizCertificate({ name, score }: { name: string; score: number }) {
         </div>
         <div className="main">
           This certifies that
-          <span>{name}</span>
-          has successfully completed the quiz on realfarmer platform with score
-          {score}%.
+          <span className="title">{name}</span>
+          <p>
+            has successfully completed the quiz on realfarmer platform with
+            <span> {score}%.</span>
+          </p>
         </div>
         <div className="footer">
           Verify this certification at
           https://realfarmer-quiz.netlify.app/certification/user/quizId
         </div>
       </div>
-    </>
+    </div>
   );
 }
 export { QuizCertificate };

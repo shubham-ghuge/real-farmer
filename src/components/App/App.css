@@ -105,6 +105,7 @@ body {
   z-index: var(--z-1);
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 60px;
   border-bottom: 1px solid #adadb4;
 }
@@ -154,9 +155,6 @@ body {
 }
 .menu .cta svg {
   vertical-align: middle;
-}
-.menu .account {
-  margin: 0 var(--p-3);
 }
 .menu .account svg {
   height: 40px;
