@@ -12,4 +12,19 @@ async function getUserQuizResult(): Promise<QuizResultResponse> {
     return requestErrorHandler(error);
   }
 }
-export { getUserQuizResult };
+
+async function postQuizResult(score: number, quizId: string) {
+  try {
+    const response = await axios.post(
+      "https://realfarmer-quiz.herokuapp.com/users/result",
+      {
+        quizId,
+        score,
+      }
+    );
+    console.log(response.data);
+  } catch (error) {
+    return requestErrorHandler(error);
+  }
+}
+export { getUserQuizResult, postQuizResult };

@@ -6,14 +6,15 @@ import download from "downloadjs";
 function QuizCertificate({ name, score }: { name: string; score: number }) {
   const onButtonClick = () => {
     var domElement = document.getElementById("certificateDom");
-    htmlToImage
-      .toPng(domElement as HTMLElement)
-      .then(function (dataUrl) {
-        download(dataUrl, "certificate.png");
-      })
-      .catch(function (error) {
-        console.error("oops, something went wrong!", error);
-      });
+    if(domElement)
+      htmlToImage
+        .toPng(domElement)
+        .then(function (dataUrl) {
+          download(dataUrl, "certificate.png");
+        })
+        .catch(function (error) {
+          console.error("oops, something went wrong!", error);
+        });
   };
   return (
     <>

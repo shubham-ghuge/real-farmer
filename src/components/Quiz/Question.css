@@ -112,6 +112,7 @@
 }
 
 .result {
+  padding-top: 60px;
   width: 100%;
   background-color: #f6f6f6;
   display: flex;
@@ -119,9 +120,7 @@
   align-items: center;
   box-sizing: border-box;
 }
-.result .cta {
-  align-self: flex-end;
-}
+
 .result > div {
   margin: var(--p-5) var(--p-5) 0;
   border: 1px solid var(--c-grey-apple);

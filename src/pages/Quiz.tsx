@@ -24,10 +24,10 @@ export default function Quiz() {
   }, []);
 
   return (
-    <section className="quiz">
+    <section className="">
       {loading && <Loader color="c-primary" />}
       {currentQuestion < quizQuestions.length ? (
-        <div className="container">
+        <div className="quiz container">
           <Question
             question={quizQuestions[currentQuestion].text}
             options={quizQuestions[currentQuestion].options}

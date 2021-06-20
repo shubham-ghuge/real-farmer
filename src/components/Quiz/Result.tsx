@@ -1,17 +1,34 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuizContext } from "../../contexts/QuizContext";
+import { postQuizResult } from "../../services/user.service";
 
 export default function Result() {
+  const { quizId } = useParams();
+  const [correctAnswers, setCorrectAnswers] = useState(0);
   const {
-    initialState: { userAnswers, quizQuestions },
+    initialState: { userAnswers, quizQuestions, score },
     dispatch,
   } = useQuizContext();
   let navigate = useNavigate();
   const questionCopy = quizQuestions;
-
+  useEffect(() => {
+    async function postResult() {
+      await postQuizResult(score, quizId);
+    }
+    postResult();
+  }, []);
   userAnswers.map((item) => {
     return (questionCopy[item.question].options[item.answer].isSelected = true);
   });
+  useEffect(() => {
+    userAnswers.map(
+      (item) =>
+        questionCopy[item.question].options[item.answer].isRight &&
+        setCorrectAnswers((curr) => curr + 1)
+    );
+  }, []);
+
   function resetQuiz() {
     dispatch({ type: "RESET_QUIZ" });
     return navigate("/certificates");
@@ -19,14 +36,16 @@ export default function Result() {
 
   return (
     <div className="result">
-      <button onClick={resetQuiz} className="btn-primary cta m-4 mb-0">
+      <button onClick={resetQuiz} className="btn-primary cta p-4 m-4 mb-0">
         Get Your Certificate
       </button>
       <div className="quiz-stats">
         <div className="grid-item one">
           <h2>Your Score:</h2>
           <div className="score">
-            <span className="count"> 80% </span>
+            <span className="count">
+              {(score / (quizQuestions.length * 5)) * 100}%
+            </span>
           </div>
           <p className="markers">selected Question</p>
           <p className="markers">correct answer</p>
@@ -34,11 +53,11 @@ export default function Result() {
         <div>
           <div className="grid-item cube">
             <h2>Total Questions:</h2>
-            <span className="count">50</span>
+            <span className="count">{quizQuestions.length}</span>
           </div>
           <div className="grid-item cube">
             <h2>Correct Answers:</h2>
-            <span className="count">30</span>
+            <span className="count">{correctAnswers}</span>
           </div>
         </div>
       </div>
@@ -49,16 +68,18 @@ export default function Result() {
               {index + 1}. {question.text}
             </h2>
             <div className="flex-column">
-              {question.options.map((option, idx) => (
-                <label
-                  key={idx.toString()}
-                  className={`option ${option.isRight ? "correct" : ""} ${
-                    option.isSelected !== undefined ? "chosen" : ""
-                  }`}
-                >
-                  {option.text}
-                </label>
-              ))}
+              {question.options.map((option, idx) => {
+                return (
+                  <label
+                    key={idx.toString()}
+                    className={`option ${option.isRight ? "correct" : ""} ${
+                      option.isSelected !== undefined ? "chosen" : ""
+                    }`}
+                  >
+                    {option.text}
+                  </label>
+                );
+              })}
               {question.note && (
                 <p className="note d-flex ai-start">
                   <svg
@@ -83,10 +104,3 @@ export default function Result() {
     </div>
   );
 }
-/***
- * [
- * {question:1,answer:1},
- * {question:2,answer:1}}
- * ]
- *
- */
