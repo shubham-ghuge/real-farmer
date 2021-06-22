@@ -1,11 +1,22 @@
 import axios from "axios";
-import { QuizResultResponse } from "../data/quizData.types";
+import { QuizResultResponse, UserInfo } from "../data/quizData.types";
 import { requestErrorHandler } from "./utils.service";
 
 async function getUserQuizResult(): Promise<QuizResultResponse> {
   try {
     const response = await axios.get<QuizResultResponse>(
       "https://realfarmer-quiz.herokuapp.com/users/result"
+    );
+    return response.data;
+  } catch (error) {
+    return requestErrorHandler(error);
+  }
+}
+
+async function getUserInfo(): Promise<UserInfo> {
+  try {
+    const response = await axios.get<UserInfo>(
+      "https://realfarmer-quiz.herokuapp.com/users/"
     );
     return response.data;
   } catch (error) {
@@ -27,4 +38,4 @@ async function postQuizResult(score: number, quizId: string) {
     return requestErrorHandler(error);
   }
 }
-export { getUserQuizResult, postQuizResult };
+export { getUserQuizResult, postQuizResult, getUserInfo };

@@ -9,6 +9,7 @@ import Certificate from "../../pages/Certificate";
 import { Error } from "../Error";
 import Login from "../Auth/Login";
 import Register from "../Auth/Register";
+import UserQuizzes from "../../pages/UserQuizzes";
 function App() {
   return (
     <>
@@ -21,6 +22,7 @@ function App() {
         <PrivateRoute path="/quiz/:quizId" element={<Quiz />} />
         <PrivateRoute path="/certificates" element={<Certificate />} />
         <PrivateRoute path="/dashboard" element={<Dashboard />} />
+        <PrivateRoute path="/userquizzes" element={<UserQuizzes />} />
       </Routes>
     </>
   );

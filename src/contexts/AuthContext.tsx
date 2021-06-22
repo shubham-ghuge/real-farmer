@@ -2,7 +2,9 @@ import React, { useContext, createContext, useState } from "react";
 
 type User = {
   token: string | null;
+  name: string;
   setToken: Function;
+  setName: Function;
   visibleMenu: boolean;
   setVisibilityMenu: Function;
 };
@@ -15,11 +17,14 @@ export type ProviderProp = {
 
 export function AuthProvider({ children }: ProviderProp) {
   const [token, setToken] = useState(null);
+  const [name, setName] = useState("");
   const [isMenuVisible, setMenuVisible] = useState(false);
   return (
     <AuthContext.Provider
       value={{
         token,
+        name,
+        setName,
         setToken,
         visibleMenu: isMenuVisible,
         setVisibilityMenu: setMenuVisible,

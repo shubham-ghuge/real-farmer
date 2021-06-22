@@ -39,7 +39,6 @@ export const quizReducer = (state: InitialStateType, action: ACTIONTYPE) => {
       return { ...state, quizQuestions: data };
 
     case "RESET_QUIZ":
-      console.log("in reset quiz");
       return {
         ...state,
         quizQuestions: [],

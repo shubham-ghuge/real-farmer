@@ -22,11 +22,19 @@ export type BaseFormResponse = {
   message?: string;
 };
 
+export type UserInfo = BaseFormResponse & {
+  data?: {
+    name: string;
+    email: string;
+  };
+};
+
 export type QuizDataResponse = BaseFormResponse & {
   quiz?: Quiz;
 };
 export type AuthFormResponse = BaseFormResponse & {
   token?: string;
+  name?: string;
 };
 
 export type QuizNameAndId = BaseFormResponse & {

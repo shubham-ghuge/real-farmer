@@ -12,6 +12,10 @@
   cursor: not-allowed !important;
 }
 
+.fw-600 {
+  font-weight: 600;
+}
+
 .btn-reset {
   background-color: transparent;
   border: 0;
