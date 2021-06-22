@@ -23,7 +23,6 @@
   align-self: flex-end;
   padding: var(--p-2) !important;
 }
-.quiz .btn-success:hover svg,
 .quiz .cta:hover svg {
   animation: backAndForth 0.3s forwards;
 }
@@ -53,7 +52,7 @@
   place-items: center;
   border-radius: 50%;
   margin: 0 auto var(--p-4);
-  outline: 7px solid #c8c8c8;
+  border: 7px solid #c8c8c8;
 }
 .quiz-stats .grid-item {
   padding: var(--p-2);
@@ -172,7 +171,7 @@
     height: 130px;
     width: 130px;
     margin: var(--p-4) auto var(--p-7);
-    outline: 0.8rem solid #c8c8c8;
+    border: 0.8rem solid #c8c8c8;
   }
   .quiz-stats .one {
     height: 270px;

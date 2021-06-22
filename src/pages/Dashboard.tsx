@@ -9,9 +9,9 @@ import { getQuizInitialData } from "../services/quizData.service";
 export default function Dashboard() {
   const { dispatch } = useQuizContext();
   const { name } = useAuthContext();
-  const [data, setData] = useState<QuizNameAndID>();
+  type QuizNameAndID = { name: string; id: string };
+  const [data, setData] = useState<QuizNameAndID[]>();
   const [loading, setLoading] = useState(false);
-  type QuizNameAndID = [{ name: string; id: string }];
   useEffect(() => {
     return dispatch({ type: "RESET_QUIZ" });
   }, [dispatch]);
@@ -19,7 +19,7 @@ export default function Dashboard() {
     async function getData() {
       setLoading(true);
       const { listOfQuizzes } = await getQuizInitialData();
-      setData(listOfQuizzes as unknown as QuizNameAndID);
+      listOfQuizzes && setData(listOfQuizzes);
       return setLoading(false);
     }
     getData();
@@ -33,7 +33,7 @@ export default function Dashboard() {
         ) : (
           data &&
           data.map((i) => (
-            <Card>
+            <Card key={i.id}>
               <h3>{i.name}</h3>
               <Link to={`/quiz/${i.id}`} className="cta btn-primary">
                 Start Quiz

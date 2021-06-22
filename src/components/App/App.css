@@ -116,7 +116,7 @@ body {
   background-color: #f5f5f5;
 }
 
-.menu a{
+.menu a {
   display: inline-flex;
   align-items: center;
   padding: 0 var(--p-2);
@@ -153,8 +153,14 @@ body {
   vertical-align: middle;
 }
 .menu .account svg {
-  height: 40px;
-  width: 40px;
+  height: 25px;
+  width: 25px;
+}
+.menu .account div {
+  padding: var(--p-2);
+  background-color: #2320cc;
+  color: #fff;
+  border-radius: 50%;
 }
 
 .quiz-grid .heading {

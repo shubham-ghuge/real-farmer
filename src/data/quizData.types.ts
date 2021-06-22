@@ -38,10 +38,12 @@ export type AuthFormResponse = BaseFormResponse & {
 };
 
 export type QuizNameAndId = BaseFormResponse & {
-  listOfQuizzes?: {
-    id: string;
-    name: string;
-  };
+  listOfQuizzes?: [
+    {
+      id: string;
+      name: string;
+    }
+  ];
 };
 
 export type QuizResultResponse = BaseFormResponse & {

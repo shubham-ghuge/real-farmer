@@ -17,7 +17,7 @@ export default function Result() {
       await postQuizResult((score / (quizQuestions.length * 5)) * 100, quizId);
     }
     postResult();
-  }, []);
+  }, [quizId, quizQuestions.length, score]);
   userAnswers.map((item) => {
     return (questionCopy[item.question].options[item.answer].isSelected = true);
   });
@@ -47,8 +47,8 @@ export default function Result() {
               {(score / (quizQuestions.length * 5)) * 100}%
             </span>
           </div>
-          <p className="markers">selected Question</p>
-          <p className="markers">correct answer</p>
+          <p className="markers">selected Option</p>
+          <p className="markers">correct Option</p>
         </div>
         <div>
           <div className="grid-item cube">
@@ -56,7 +56,7 @@ export default function Result() {
             <span className="count">{quizQuestions.length}</span>
           </div>
           <div className="grid-item cube">
-            <h2>Correct Answers:</h2>
+            <h2>Attempted:</h2>
             <span className="count">{correctAnswers}</span>
           </div>
         </div>

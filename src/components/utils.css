@@ -11,6 +11,9 @@
 .not-allowed {
   cursor: not-allowed !important;
 }
+.jc-end {
+  justify-content: flex-end !important;
+}
 
 .fw-600 {
   font-weight: 600;
@@ -79,11 +82,12 @@
   }
 }
 .icon-input {
+  background-color: #fff;
   width: 315px;
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  outline: 1px solid #adadb4;
+  border: 1px solid #adadb4;
   border-radius: var(--br-1);
   position: relative;
 }
@@ -100,15 +104,16 @@
 .icon-input input {
   font-family: "Inter";
   padding: var(--p-3) 0;
-  flex-basis: 1;
+  width: 80%;
   border: 0;
 }
 .icon-input input:focus {
   outline: 0;
 }
 .icon-input:focus-within {
+  transition: all 0.2s ease;
   background-color: #fff;
-  outline: 2px solid var(--current-color);
+  border: 2px solid var(--current-color);
 }
 .icon-input:focus-within .icon {
   color: var(--current-color);
