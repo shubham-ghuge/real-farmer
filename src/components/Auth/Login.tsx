@@ -24,7 +24,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [hide, setHide] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const { setToken, setName } = useAuthContext();
+  const { setToken, setName, setEmail: setEmailContext } = useAuthContext();
   let navigate = useNavigate();
 
   function unAuthorizedUser() {
@@ -43,12 +43,13 @@ export default function Login() {
 
   useEffect(() => {
     async function checkUserLoggedIn() {
-      const { isUserLoggedIn, token, name } = (await JSON.parse(
+      const { isUserLoggedIn, token, name, email } = (await JSON.parse(
         localStorage.getItem("login") as string
-      )) ?? { isUserLoggedIn: false, token: "", name: "" };
+      )) ?? { isUserLoggedIn: false, token: "", name: "", email: "" };
       if (isUserLoggedIn) {
         setToken(() => token);
         setName(() => name);
+        setEmailContext(() => email);
         setupTokenToAxiosRequests(token);
         return navigate("/dashboard");
       }
@@ -64,12 +65,12 @@ export default function Login() {
   async function loginUser(e?: React.FormEvent) {
     e && e.preventDefault();
     setLoading(true);
-    console.log(email, password);
     const data: AuthFormResponse = await userLogin(email, password);
     setLoading(false);
     setShowAlert(true);
     if (data.success && "token" in data) {
       setToken(() => data.token);
+      setEmailContext(() => email);
       data.name && setName(data.name);
       window.localStorage.setItem(
         "login",
@@ -77,6 +78,7 @@ export default function Login() {
           isUserLoggedIn: true,
           token: data.token,
           name: data.name,
+          email: email,
         })}`
       );
       if (data.token) setupTokenToAxiosRequests(data.token);

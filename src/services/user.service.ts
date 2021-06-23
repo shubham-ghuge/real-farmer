@@ -1,5 +1,8 @@
 import axios from "axios";
-import { QuizResultResponse, UserInfo } from "../data/quizData.types";
+import {
+  CertificateValidation,
+  QuizResultResponse,
+} from "../data/quizData.types";
 import { requestErrorHandler } from "./utils.service";
 
 async function getUserQuizResult(): Promise<QuizResultResponse> {
@@ -13,14 +16,17 @@ async function getUserQuizResult(): Promise<QuizResultResponse> {
   }
 }
 
-async function getUserInfo(): Promise<UserInfo> {
+async function validateUserCertificates(
+  email: string
+): Promise<CertificateValidation> {
   try {
-    const response = await axios.get<UserInfo>(
-      "https://realfarmer-quiz.herokuapp.com/users/"
+    const response = await axios.get<CertificateValidation>(
+      `https://realfarmer-quiz.herokuapp.com/certificate/${email}`
     );
     return response.data;
   } catch (error) {
-    return requestErrorHandler(error);
+    console.log(error);
+    return { quizCertificateData: [], name: "error" };
   }
 }
 
@@ -38,4 +44,4 @@ async function postQuizResult(score: number, quizId: string) {
     return requestErrorHandler(error);
   }
 }
-export { getUserQuizResult, postQuizResult, getUserInfo };
+export { getUserQuizResult, validateUserCertificates, postQuizResult };

@@ -3,7 +3,19 @@ import * as htmlToImage from "html-to-image";
 import logo from "../../assets/logo.svg";
 import download from "downloadjs";
 
-function QuizCertificate({ name, score }: { name: string; score: number }) {
+function QuizCertificate({
+  name,
+  userName,
+  score,
+  email,
+  show,
+}: {
+  name: string;
+  userName: string;
+  score: number;
+  email: string;
+  show: boolean;
+}) {
   const onButtonClick = () => {
     var domElement = document.getElementById("certificateDom");
     if (domElement)
@@ -18,9 +30,11 @@ function QuizCertificate({ name, score }: { name: string; score: number }) {
   };
   return (
     <div className="flex-column ai-center">
-      <button className="btn-primary mb-7" onClick={onButtonClick}>
-        download certificate
-      </button>
+      {show && (
+        <button className="btn-primary mb-7" onClick={onButtonClick}>
+          download certificate
+        </button>
+      )}
 
       <div className="quiz-certificate" id="certificateDom">
         <div className="header">
@@ -29,15 +43,22 @@ function QuizCertificate({ name, score }: { name: string; score: number }) {
         </div>
         <div className="main">
           This certifies that
-          <span className="title">{name}</span>
+          <span className="title">{userName}</span>
           <p>
-            has successfully completed the quiz on realfarmer platform with
+            has successfully completed the <span>{name}</span> quiz on
+            realfarmer platform with
             <span> {score}%.</span>
           </p>
         </div>
         <div className="footer">
-          Verify this certification at
-          https://realfarmer-quiz.netlify.app/certification/user/quizId
+          Verify this certification at{" "}
+          <a
+            href={` https://realfarmer-quiz.netlify.app/certificate/${email}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {`https://realfarmer-quiz.netlify.app/certificate/${email}`}
+          </a>
         </div>
       </div>
     </div>

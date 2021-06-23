@@ -10,6 +10,7 @@ import { Error } from "../Error";
 import Login from "../Auth/Login";
 import Register from "../Auth/Register";
 import UserQuizzes from "../../pages/UserQuizzes";
+import CertificateValidate from "../../pages/CertificateValidate";
 function App() {
   return (
     <>
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Route>
+        <Route path="/certificate/:email" element={<CertificateValidate />} />
         <Route path="*" element={<Error />} />
         <PrivateRoute path="/quiz/:quizId" element={<Quiz />} />
         <PrivateRoute path="/certificates" element={<Certificate />} />

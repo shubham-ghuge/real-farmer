@@ -4,6 +4,7 @@ import certficateIcon from "../assets/certificate-icon.svg";
 import { QuizCertificate } from "../components/QuizCertificate";
 import { getUserQuizResult } from "../services/user.service";
 import { Loader } from "../components/Icons";
+import { useAuthContext } from "../contexts/AuthContext";
 
 export default function Certificate() {
   type certificateType = {
@@ -12,6 +13,7 @@ export default function Certificate() {
   };
   const [loading, setLoading] = useState(false);
   const [certificateData, setCertificateData] = useState<certificateType[]>();
+  const { name, email } = useAuthContext();
   useEffect(() => {
     async function getData() {
       setLoading(true);
@@ -52,9 +54,20 @@ export default function Certificate() {
           </div>
         </div>
       ) : (
-        certificateData?.map((i) => (
-          <QuizCertificate name={i.name} score={i.score} key={Date.now()} />
-        ))
+        certificateData?.map((i, idx) => {
+          const userEmail = email;
+          const uName = name;
+          return (
+            <QuizCertificate
+              name={i.name}
+              score={i.score}
+              email={userEmail}
+              userName={uName}
+              key={idx}
+              show={true}
+            />
+          );
+        })
       )}
     </section>
   );

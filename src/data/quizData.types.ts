@@ -22,13 +22,6 @@ export type BaseFormResponse = {
   message?: string;
 };
 
-export type UserInfo = BaseFormResponse & {
-  data?: {
-    name: string;
-    email: string;
-  };
-};
-
 export type QuizDataResponse = BaseFormResponse & {
   quiz?: Quiz;
 };
@@ -55,4 +48,9 @@ export type QuizResultResponse = BaseFormResponse & {
         }
       ]
     | [];
+};
+
+export type CertificateValidation = {
+  quizCertificateData: [{ name: string; score: number }] | [];
+  name: string;
 };

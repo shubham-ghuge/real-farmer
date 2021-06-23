@@ -45,7 +45,7 @@ function Search({ onClose }: { onClose: Function }) {
         <ul className="list">
           {result && result.length !== 0 ? (
             result.map((i) => (
-              <li className="list-item" key={i.id} onClick={() => onClose()}>
+              <li className="list-item mb-3" key={i.id} onClick={() => onClose()}>
                 <Link to={`/quiz/${i.id}`}>{i.name}</Link>
               </li>
             ))

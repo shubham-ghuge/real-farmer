@@ -1,22 +1,10 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { getUserInfo } from "../../services/user.service";
+import { useAuthContext } from "../../contexts/AuthContext";
 import { logout } from "../Auth/Login";
-import { Loader } from "../Icons";
 
 function UserInfo() {
   let navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const [userData, setUserData] = useState<{ name: string; email: string }>();
-  useEffect(() => {
-    async function getData() {
-      setLoading(true);
-      const { data } = await getUserInfo();
-      setUserData(data);
-      return setLoading(false);
-    }
-    getData();
-  }, []);
+  const { name, email } = useAuthContext();
   function logoutUser() {
     logout();
     return navigate("/");
@@ -32,19 +20,21 @@ function UserInfo() {
       }}
     >
       <ul className="list">
-        {loading ? (
-          <Loader color="c-primary" />
-        ) : (
-          <>
-            <li className="list-item">name: <span className="fw-600">{userData?.name}</span></li>
-            <li className="list-item">email: <span className="fw-600">{userData?.email}</span></li>
-            <li className="list-item">
-              <button onClick={logoutUser} className="btn-c-primary cta" style={{padding:".7rem 1rem"}}>
-                Log Out
-              </button>
-            </li>
-          </>
-        )}
+        <li className="list-item">
+          name: <span className="fw-600">{name}</span>
+        </li>
+        <li className="list-item">
+          email: <span className="fw-600">{email}</span>
+        </li>
+        <li className="list-item">
+          <button
+            onClick={logoutUser}
+            className="btn-c-primary cta"
+            style={{ padding: ".7rem 1rem" }}
+          >
+            Log Out
+          </button>
+        </li>
       </ul>
     </div>
   );
