@@ -23,6 +23,7 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [hide, setHide] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const { setToken, setName } = useAuthContext();
   let navigate = useNavigate();
 
@@ -56,11 +57,17 @@ export default function Login() {
     checkUserLoggedIn();
   }, []);
 
+  function demoLoginUser() {
+    setEmail("shubhamghuge34@gmail.com");
+    setPassword("shubham");
+  }
   async function loginUser(e?: React.FormEvent) {
     e && e.preventDefault();
     setLoading(true);
+    console.log(email, password);
     const data: AuthFormResponse = await userLogin(email, password);
     setLoading(false);
+    setShowAlert(true);
     if (data.success && "token" in data) {
       setToken(() => data.token);
       data.name && setName(data.name);
@@ -78,15 +85,16 @@ export default function Login() {
       if (data.message) return setError(data.message);
     }
   }
-  function demoLoginUser() {
-    setEmail("shubhamghuge34@gmail.com");
-    setPassword("shubham");
-    return loginUser();
-  }
 
   return (
     <>
-      {error && <Alert type="danger" message={error} />}
+      {showAlert && (
+        <Alert
+          type="danger"
+          message={error}
+          onClose={() => setShowAlert(false)}
+        />
+      )}
       <form
         onSubmit={(event) => loginUser(event)}
         className="ai-center flex-column"

@@ -12,7 +12,7 @@ export default function Form() {
   const [data, setData] = useState<AuthFormResponse>({} as AuthFormResponse);
   let navigate = useNavigate();
   const [state, dispatch] = useReducer(formReducer, initialState);
-
+  const [showAlert, setShowAlert] = useState(false);
   function setInput(event: React.FormEvent<HTMLInputElement>) {
     return dispatch({
       type: "SET_VALUE",
@@ -34,6 +34,7 @@ export default function Form() {
       dispatch({ type: "SET_LOADING", payload: { status: false } });
       if ("message" in data) {
         setData(data);
+        setShowAlert(true);
       }
       return (
         data.success &&
@@ -47,13 +48,14 @@ export default function Form() {
   return (
     <>
       <div className="mb-4">
-        {data.message && (
+        {showAlert ? (
           <Alert
+            onClose={() => setShowAlert(false)}
             type={data.success ? "success" : "danger"}
             heading={data.message}
             message={data.success ? "you'll be redirect to login" : ""}
           />
-        )}
+        ) : null}
       </div>
       <form
         className="ai-center flex-column"

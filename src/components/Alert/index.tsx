@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { Correct, Warning } from "../Icons";
+import { useEffect } from "react";
+import { Close, Correct, Warning } from "../Icons";
 
 type AlertProps = {
   type: string;
   heading?: string;
   message?: string;
+  onClose: Function;
 };
 
-function Alert({ type, heading, message }: AlertProps) {
-  const [expire, setExpiry] = useState(true);
+function Alert({ type, heading, message, onClose }: AlertProps) {
   function setIcon(type: string) {
     switch (type) {
       case "danger":
@@ -22,19 +22,20 @@ function Alert({ type, heading, message }: AlertProps) {
     }
   }
   useEffect(() => {
-    setTimeout(() => {
-      setExpiry((curr) => !curr);
-    }, 3000);
-  }, []);
+    setTimeout(() => onClose(false), 2000);
+  }, [onClose]);
 
-  return expire ? (
+  return (
     <div className={`alert-${type} outline-${type} w-sm-30 pos-top-right`}>
+      <span className="close" onClick={() => onClose()}>
+        <Close />
+      </span>
       <span>{setIcon(type)}</span>
       <div className="alert-content">
         <h3 style={{ fontWeight: 500 }}>{heading}</h3>
         <p className="text-capitalize">{message}</p>
       </div>
     </div>
-  ) : null;
+  );
 }
 export { Alert };

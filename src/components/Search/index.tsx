@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { getQuizInitialData } from "../../services/quizData.service";
+import { Close } from "../Icons";
 import "./Search.css";
 function Search({ onClose }: { onClose: Function }) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -29,10 +30,12 @@ function Search({ onClose }: { onClose: Function }) {
       setResult(result);
     }
   }
-  console.log(result);
   return (
     <div className="search-container" onClick={() => onClose()}>
-      <div className="p-7" onClick={(e) => e.stopPropagation()}>
+      <span className="close c-primary bgc-base-100 fsz-2 px-1 bdrs-1" onClick={() => onClose()}>
+        <Close />
+      </span>
+      <div onClick={(e) => e.stopPropagation()}>
         <input
           placeholder="Explore Quizzes &amp; More"
           ref={inputRef}
@@ -47,7 +50,9 @@ function Search({ onClose }: { onClose: Function }) {
               </li>
             ))
           ) : (
-            <h2 className="c-primary bgc-base-100 p-2 bdrs-1">data not found</h2>
+            <h4 className="c-primary bgc-base-100 p-2 bdrs-1">
+              no search results
+            </h4>
           )}
         </ul>
       </div>
