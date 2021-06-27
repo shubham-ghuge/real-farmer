@@ -47,7 +47,7 @@ function QuizCertificate({
           <p>
             has successfully completed the <span>{name}</span> quiz on
             realfarmer platform with
-            <span> {score}%.</span>
+            <span> {parseFloat(score.toString()).toFixed(2)}%.</span>
           </p>
         </div>
         <div className="footer">

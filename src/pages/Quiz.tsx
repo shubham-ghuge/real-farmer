@@ -31,7 +31,7 @@ export default function Quiz() {
         </div>
       )}
       {currentQuestion < quizQuestions.length ? (
-        <div className="quiz container">
+        <div className="quiz h-50 container">
           <Question
             question={quizQuestions[currentQuestion].text}
             options={quizQuestions[currentQuestion].options}

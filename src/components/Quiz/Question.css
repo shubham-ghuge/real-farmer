@@ -182,7 +182,7 @@
     width: 250px;
   }
   .quiz-stats .count {
-    font-size: var(--fsz-5);
+    font-size: var(--fsz-4);
   }
   .quiz-stats h2 {
     font-size: var(--fsz-2);
