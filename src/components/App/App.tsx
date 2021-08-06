@@ -12,25 +12,21 @@ import Register from "../Auth/Register";
 import UserQuizzes from "../../pages/UserQuizzes";
 import CertificateValidate from "../../pages/CertificateValidate";
 import axios from "axios";
-import { useEffect } from "react";
+
 function App() {
   let navigate = useNavigate();
-  function unAuthorizedUser() {
-    const UNAUTHORIZED = 401;
-    axios.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        if (error?.response?.status === UNAUTHORIZED) {
-          logout();
-          return navigate("/");
-        }
-        return Promise.reject(error);
+  const UNAUTHORIZED = 401;
+  axios.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error?.response?.status === UNAUTHORIZED) {
+        logout();
+        return navigate("/");
       }
-    );
-  }
-  useEffect(() => {
-    unAuthorizedUser();
-  }, []);
+      return Promise.reject(error);
+    }
+  );
+  
   return (
     <>
       <Routes>

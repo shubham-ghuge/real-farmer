@@ -1,10 +1,11 @@
-import { createContext, useContext, useReducer } from "react";
-import { ProviderProp } from "./AuthContext";
+import { createContext, useContext, useEffect, useReducer } from "react";
+import { ProviderProp, useAuthContext } from "./AuthContext";
 import {
   InitialStateType,
   initialState,
   quizReducer,
 } from "../reducers/quizReducer";
+import { getQuizInitialData } from "../services/quizData.service";
 
 type ContextDefaultValueType = {
   initialState: InitialStateType;
@@ -17,11 +18,25 @@ const QuizContext = createContext<ContextDefaultValueType>(
 
 export const QuizProvider = ({ children }: ProviderProp) => {
   const [state, dispatch] = useReducer(quizReducer, initialState);
+  const { loginStatus } = useAuthContext();
+  async function getData() {
+    dispatch({ type: "SET_LOADING" });
+    const { listOfQuizzes } = await getQuizInitialData();
+    listOfQuizzes &&
+      dispatch({ type: "SET_QUIZ_DATA", payload: listOfQuizzes });
+    dispatch({ type: "SET_LOADING" });
+  }
+  
+  useEffect(() => {
+    loginStatus && getData();
+  }, [loginStatus]);
 
   return (
     <QuizContext.Provider
       value={{
         initialState: {
+          quizData: state.quizData,
+          loading: state.loading,
           quizQuestions: state.quizQuestions,
           score: state.score,
           currentQuestion: state.currentQuestion,

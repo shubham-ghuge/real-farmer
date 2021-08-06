@@ -3,7 +3,6 @@ import "../utils.css";
 import { OptionType } from "../../data/quizData.types";
 import { useQuizContext } from "../../contexts/QuizContext";
 import { useEffect, useState } from "react";
-import { useAuthContext } from "../../contexts/AuthContext";
 
 type QuestionPropType = {
   question: string;
@@ -11,8 +10,6 @@ type QuestionPropType = {
 };
 
 export default function Question({ question, options }: QuestionPropType) {
-  const { setVisibilityMenu } = useAuthContext();
-  setVisibilityMenu(false);
   const {
     initialState: { currentQuestion, quizQuestions },
     dispatch,

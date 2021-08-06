@@ -3,7 +3,7 @@
   --transform: -6rem;
 }
 
-body {
+* {
   font-family: "Inter", sans-serif;
 }
 .App {
@@ -156,13 +156,19 @@ body {
   height: 25px;
   width: 25px;
 }
-.menu .account div {
+.jc-center {
+  justify-content: center !important;
+}
+.menu .account {
   padding: var(--p-2);
   background-color: #2320cc;
   color: #fff;
   border-radius: 50%;
 }
-
+.menu .account:hover {
+  background-color: #2320cc;
+  color: #fff;
+}
 .quiz-grid .heading {
   text-align: center;
 }

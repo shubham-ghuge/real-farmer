@@ -11,21 +11,28 @@ export type ACTIONTYPE =
       payload: { currentQuestionIndex: number; optionIndex: number };
     }
   | { type: "SET_QUIZ"; payload: { data: QuestionType[] } }
-  | { type: "RESET_QUIZ" };
+  | { type: "RESET_QUIZ" }
+  | { type: "SET_QUIZ_DATA"; payload: quizNameData[] }
+  | { type: "SET_LOADING" };
 
 export type Answers = {
   question: number;
   answer: number;
 };
+type quizNameData = { name: string; id: string };
 
 export type InitialStateType = {
+  loading: Boolean;
   quizQuestions: QuestionType[];
   score: number;
   currentQuestion: number;
   userAnswers: Answers[];
+  quizData: quizNameData[] | undefined;
 };
 
 export const initialState = {
+  loading: false,
+  quizData: [],
   quizQuestions: questions,
   score: 0,
   currentQuestion: 0,
@@ -34,6 +41,12 @@ export const initialState = {
 
 export const quizReducer = (state: InitialStateType, action: ACTIONTYPE) => {
   switch (action.type) {
+    case "SET_LOADING":
+      return { ...state, loading: !state.loading };
+
+    case "SET_QUIZ_DATA":
+      return { ...state, quizData: action.payload };
+
     case "SET_QUIZ":
       const { data } = action.payload;
       return { ...state, quizQuestions: data };

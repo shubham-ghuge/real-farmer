@@ -1,10 +1,8 @@
 import { Outlet } from "react-router";
-import PrimaryHeader from "../components/Header/PrimaryHeader";
 
 export default function Home() {
   return (
     <>
-      <PrimaryHeader />
       <section className="hero container">
         <h2 className="heading px-4">
           A farmer's knowledge is his or her best possession.

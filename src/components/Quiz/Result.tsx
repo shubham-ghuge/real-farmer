@@ -12,12 +12,15 @@ export default function Result() {
   } = useQuizContext();
   let navigate = useNavigate();
   const questionCopy = quizQuestions;
+  
+  async function postResult() {
+    await postQuizResult((score / (quizQuestions.length * 5)) * 100, quizId);
+  }
+
   useEffect(() => {
-    async function postResult() {
-      await postQuizResult((score / (quizQuestions.length * 5)) * 100, quizId);
-    }
     postResult();
-  }, [quizId, quizQuestions.length, score]);
+  }, []);
+
   userAnswers.map((item) => {
     return (questionCopy[item.question].options[item.answer].isSelected = true);
   });
@@ -83,9 +86,7 @@ export default function Result() {
                 );
               })}
               {question.note && (
-                <p className="note d-flex ai-start">
-                  note:{" "}{question.note}
-                </p>
+                <p className="note d-flex ai-start">note: {question.note}</p>
               )}
             </div>
           </div>
