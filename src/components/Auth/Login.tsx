@@ -11,12 +11,7 @@ import { Alert } from "../Alert";
 import { AuthFormResponse } from "../../data/quizData.types";
 import { Link } from "react-router-dom";
 
-export function logout() {
-  localStorage.removeItem("login");
-  setupTokenToAxiosRequests(null);
-}
-
-export default function Login() {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -25,7 +20,8 @@ export default function Login() {
   const [hide, setHide] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  const { setName, loginStatus, setUserLoginStatus } = useAuthContext();
+  const { setName, loginStatus, setUserLoginStatus, setSessionEmail } =
+    useAuthContext();
 
   function demoLoginUser() {
     setEmail("shubhamghuge34@gmail.com");
@@ -34,6 +30,7 @@ export default function Login() {
 
   useEffect(() => {
     loginStatus && navigate("/dashboard");
+    return () => undefined;
   }, [loginStatus, navigate]);
 
   async function loginUser(e?: React.FormEvent) {
@@ -56,6 +53,7 @@ export default function Login() {
       );
       if (data.token) setupTokenToAxiosRequests(data.token);
       setUserLoginStatus(true);
+      setSessionEmail(email);
     } else {
       if (data.message) return setError(data.message);
     }
@@ -70,6 +68,9 @@ export default function Login() {
           onClose={() => setShowAlert(false)}
         />
       )}
+      <h2 className="heading text-center mb-7">
+        Log in<span className="c-theme">.</span>
+      </h2>
       <form
         onSubmit={(event) => loginUser(event)}
         className="ai-center flex-column"
@@ -79,6 +80,7 @@ export default function Login() {
           <input
             type="email"
             value={email}
+            placeholder="john@domain.com"
             onChange={(e) =>
               setEmail((currentEmail) => (currentEmail = e.target.value))
             }
@@ -88,13 +90,10 @@ export default function Login() {
         <div className="icon-input mb-4">
           <Key />
           <input
+          placeholder="******"
             type={hide ? "text" : "password"}
             value={password}
-            onChange={(e) =>
-              setPassword(
-                (currentPassword) => (currentPassword = e.target.value)
-              )
-            }
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
           <button type="button" onClick={() => setHide((curr) => !curr)}>
@@ -107,13 +106,13 @@ export default function Login() {
         <p className="text-center mt-4">
           <span>
             <button className="btn-reset link" onClick={demoLoginUser}>
-              {loading ? <Loader /> : "demo login"}
+              demo login
             </button>
           </span>
         </p>
       </form>
       <p className="text-center mt-4">
-        don't have an account?
+        Don't have an account?
         <span>
           <Link to="/register"> Register</Link>
         </span>
@@ -121,3 +120,5 @@ export default function Login() {
     </>
   );
 }
+
+export { Login };

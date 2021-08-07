@@ -10,17 +10,19 @@ function CertificateValidate() {
   const { email } = useParams();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<CertificateValidation>();
-  useEffect(() => {
-    async function getData() {
-      setLoading(true);
-      const response = await validateUserCertificates(email);
-      if (response) {
-        setData(response);
-      }
-      setLoading(false);
+
+  async function getData() {
+    setLoading(true);
+    const response = await validateUserCertificates(email);
+    if (response) {
+      setData(response);
     }
+    setLoading(false);
+  }
+
+  useEffect(() => {
     getData();
-  }, [email]);
+  }, []);
   return (
     <>
       <PrimaryHeader />
@@ -29,7 +31,8 @@ function CertificateValidate() {
         {loading ? (
           <Loader />
         ) : (
-          data?.quizCertificateData.map(
+          data?.quizCertificateData &&
+          data.quizCertificateData.map(
             (i: { name: string; score: number }, idx: number) => {
               const uName = data.name;
               const uEmail = email;
@@ -47,12 +50,11 @@ function CertificateValidate() {
             }
           )
         )}
-        {data &&
-        (data.quizCertificateData.length === 0 || typeof data === "string") ? (
-          <h2 className="heading">"no records found"</h2>
-        ) : null}
+        {!data?.quizCertificateData && (
+          <h2 className="heading">no records found</h2>
+        )}
       </div>
     </>
   );
 }
-export default CertificateValidate;
+export { CertificateValidate };

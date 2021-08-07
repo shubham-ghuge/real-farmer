@@ -1,5 +1,34 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #1f2937;
+  min-height: 100vh;
+}
+.home .text {
+  box-sizing: border-box;
+  padding: var(--p-4);
+}
+.home .text h1 {
+  font-size: var(--fsz-4);
+  color: #fff;
+}
+.home .text h1 span {
+  color: #818cf8;
+}
+.home .text p {
+  font-size: var(--fsz-1);
+  color: #9ca3af;
+}
+.home .logo {
+  height: 50px;
+  margin-bottom: var(--p-4);
+}
 .user-auth {
-  margin-top: 30px;
+  background-color: #fff;
+  padding: var(--p-4);
+  box-sizing: border-box;
   --current-color: #2320cc;
 }
 .user-auth .cta {
@@ -19,8 +48,14 @@
   color: var(--current-color);
 }
 
-@media all and (min-width:600px) {
-  .user-auth{
-    margin-top: 0;
+@media all and (min-width: 600px) {
+  .home .text h1 {
+    text-align: center;
+    font-size: 3rem;
+    color: #fff;
+  }
+  .home .text p {
+    font-size: var(--fsz-2);
+    color: #9ca3af;
   }
 }

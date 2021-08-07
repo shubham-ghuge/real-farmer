@@ -5,8 +5,7 @@ import { Loader } from "../components/Icons";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useQuizContext } from "../contexts/QuizContext";
 
-export default function Dashboard() {
-  
+function Dashboard() {
   const {
     dispatch,
     initialState: { loading, quizData },
@@ -37,3 +36,5 @@ export default function Dashboard() {
     </section>
   );
 }
+
+export { Dashboard };

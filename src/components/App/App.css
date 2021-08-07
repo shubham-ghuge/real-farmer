@@ -6,6 +6,9 @@
 * {
   font-family: "Inter", sans-serif;
 }
+.c-theme {
+  color: #2320cc;
+}
 .App {
   display: grid;
   transition: all 0.5s;

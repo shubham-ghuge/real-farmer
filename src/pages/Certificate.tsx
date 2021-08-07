@@ -6,7 +6,7 @@ import { getUserQuizResult } from "../services/user.service";
 import { Loader } from "../components/Icons";
 import { useAuthContext } from "../contexts/AuthContext";
 
-export default function Certificate() {
+function Certificate() {
   type certificateType = {
     name: string;
     score: number;
@@ -72,3 +72,4 @@ export default function Certificate() {
     </section>
   );
 }
+export { Certificate };

@@ -1,21 +1,29 @@
 import { Outlet } from "react-router";
+import logo from "../assets/logo.svg";
+import { Footer } from "../components/Footer";
 
-export default function Home() {
+function Home() {
   return (
     <>
-      <section className="hero container">
-        <h2 className="heading px-4">
-          A farmer's knowledge is his or her best possession.
-        </h2>
-        <p className="fsz-1 px-4">
-          If you are a farmer, try the quizzes and get yourself certified.
-        </p>
-      </section>
-      <section className="user-auth">
-        <div>
-          <Outlet />
+      <section className="home">
+        <div className="text">
+          <h1>
+            Real Farmer <span>Quiz</span>{" "}
+          </h1>
+          <p>A farmer's knowledge is his or her best possession.</p>
         </div>
+        <section>
+          <div className="d-flex jc-center">
+            <img src={logo} className="logo" alt="logo" />
+          </div>
+          <div className="user-auth bdrs-2">
+            <Outlet />
+          </div>
+        </section>
       </section>
+      <Footer />
     </>
   );
 }
+
+export { Home };

@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { logout } from "../Auth/Login";
 
 function UserInfo() {
   let navigate = useNavigate();
-  const { name, email } = useAuthContext();
+  const { name, email, setUserLoginStatus, logout } = useAuthContext();
   function logoutUser() {
     logout();
+    setUserLoginStatus(false);
     return navigate("/");
   }
   return (

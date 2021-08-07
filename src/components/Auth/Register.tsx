@@ -8,7 +8,7 @@ import checkError from "../../services/validation.service";
 import { AuthFormResponse } from "../../data/quizData.types";
 import { Link } from "react-router-dom";
 
-export default function Form() {
+function Register() {
   const [data, setData] = useState<AuthFormResponse>({} as AuthFormResponse);
   let navigate = useNavigate();
   const [state, dispatch] = useReducer(formReducer, initialState);
@@ -61,6 +61,7 @@ export default function Form() {
         className="ai-center flex-column"
         onSubmit={(event) => submitFormData(event)}
       >
+        <h2 className="heading mb-7">Register</h2>
         <div className="mb-4">
           <div className={`icon-input `}>
             <User />
@@ -150,7 +151,7 @@ export default function Form() {
         </button>
       </form>
       <p className="text-center mt-4">
-        already have an account{" "}
+        Already have an account{" "}
         <span>
           <Link to="/">Log In</Link>
         </span>
@@ -158,3 +159,4 @@ export default function Form() {
     </>
   );
 }
+export { Register };

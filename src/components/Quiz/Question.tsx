@@ -37,6 +37,13 @@ export default function Question({ question, options }: QuestionPropType) {
     });
   }
 
+  function submitResult() {
+    dispatch({
+      type: "CHANGE_QUESTION",
+      payload: { questionIndex: currentQuestion },
+    });
+  }
+
   return (
     <div className="question">
       <h2>{`${currentQuestion + 1}. ${question}`}</h2>
@@ -62,15 +69,7 @@ export default function Question({ question, options }: QuestionPropType) {
       </div>
       <div className="d-flex jc-end">
         {currentQuestion === quizQuestions.length - 1 ? (
-          <button
-            className="btn-success"
-            onClick={() =>
-              dispatch({
-                type: "CHANGE_QUESTION",
-                payload: { questionIndex: currentQuestion },
-              })
-            }
-          >
+          <button className="btn-success" onClick={submitResult}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path
                 d="M20.8388 6.69459L8.81799 18.7154L3.16113 13.0586L4.57113 11.6486L8.81799 15.8854L19.4288 5.28459L20.8388 6.69459Z"

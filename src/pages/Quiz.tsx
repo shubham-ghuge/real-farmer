@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { Navigate, useParams } from "react-router";
 import PrimaryHeader from "../components/Header/PrimaryHeader";
 import { Loader } from "../components/Icons";
 import Question from "../components/Quiz/Question";
-import Result from "../components/Quiz/Result";
 import { useQuizContext } from "../contexts/QuizContext";
 import { getQuizData } from "../services/quizData.service";
 
-export default function Quiz() {
+function Quiz() {
   const { quizId } = useParams();
   const [loading, setLoading] = useState(false);
 
@@ -26,27 +25,33 @@ export default function Quiz() {
   useEffect(() => {
     getData();
   }, []);
-  console.log(quizQuestions.length);
+
+  if (quizQuestions === undefined) {
+    return <h2>Error while fetching</h2>;
+  }
+  if (currentQuestion === quizQuestions.length && quizQuestions.length !== 0) {
+    return <Navigate state={{ from: quizId }} replace to="/result" />;
+  }
   return (
     <>
       <PrimaryHeader show={false} />
       <section>
-        {loading && (
+        {quizQuestions.length === 0 && loading ? (
           <div className="d-flex h-90 jc-center ai-center">
             <Loader color="c-primary p-4" />
           </div>
-        )}
-        {currentQuestion < quizQuestions.length ? (
-          <div className="quiz h-80 jc-center ai-center container">
-            <Question
-              question={quizQuestions[currentQuestion].text}
-              options={quizQuestions[currentQuestion].options}
-            />
-          </div>
         ) : (
-          quizQuestions && <Result />
+          currentQuestion < quizQuestions.length && (
+            <div className="quiz h-80 jc-center ai-center container">
+              <Question
+                question={quizQuestions[currentQuestion].text}
+                options={quizQuestions[currentQuestion].options}
+              />
+            </div>
+          )
         )}
       </section>
     </>
   );
 }
+export { Quiz };

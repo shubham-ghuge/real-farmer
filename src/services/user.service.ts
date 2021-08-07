@@ -32,14 +32,10 @@ async function validateUserCertificates(
 
 async function postQuizResult(score: number, quizId: string) {
   try {
-    const response = await axios.post(
-      "https://realfarmer-quiz.herokuapp.com/users/result",
-      {
-        quizId,
-        score,
-      }
-    );
-    console.log(response.data);
+    await axios.post("https://realfarmer-quiz.herokuapp.com/users/result", {
+      quizId,
+      score,
+    });
   } catch (error) {
     return requestErrorHandler(error);
   }

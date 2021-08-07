@@ -5,9 +5,10 @@ type User = {
   loginStatus: Boolean;
   name: string;
   email: string;
-  setEmail: Function;
   setName: Function;
+  setSessionEmail: Function;
   setUserLoginStatus: Function;
+  logout: Function;
 };
 
 export const AuthContext = createContext<User>({} as User);
@@ -19,7 +20,7 @@ export type ProviderProp = {
 export function AuthProvider({ children }: ProviderProp) {
   const [loginStatus, setUserLoginStatus] = useState(false);
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setSessionEmail] = useState("");
 
   function checkUserSession() {
     const { isUserLoggedIn, token, name, email } = JSON.parse(
@@ -28,11 +29,15 @@ export function AuthProvider({ children }: ProviderProp) {
     if (isUserLoggedIn) {
       setUserLoginStatus(() => token);
       setName(() => name);
-      setEmail(() => email);
+      setSessionEmail(() => email);
       setupTokenToAxiosRequests(token);
     }
   }
-
+  function logout() {
+    localStorage.removeItem("login");
+    setUserLoginStatus(false);
+    setupTokenToAxiosRequests(null);
+  }
   useEffect(() => {
     checkUserSession();
   }, []);
@@ -43,9 +48,10 @@ export function AuthProvider({ children }: ProviderProp) {
         loginStatus,
         name,
         email,
-        setEmail,
+        setSessionEmail,
         setName,
         setUserLoginStatus,
+        logout,
       }}
     >
       {children}

@@ -19,14 +19,18 @@ const QuizContext = createContext<ContextDefaultValueType>(
 export const QuizProvider = ({ children }: ProviderProp) => {
   const [state, dispatch] = useReducer(quizReducer, initialState);
   const { loginStatus } = useAuthContext();
+
   async function getData() {
-    dispatch({ type: "SET_LOADING" });
-    const { listOfQuizzes } = await getQuizInitialData();
-    listOfQuizzes &&
-      dispatch({ type: "SET_QUIZ_DATA", payload: listOfQuizzes });
-    dispatch({ type: "SET_LOADING" });
+    try {
+      dispatch({ type: "SET_LOADING" });
+      const { listOfQuizzes } = await getQuizInitialData();
+      listOfQuizzes &&
+        dispatch({ type: "SET_QUIZ_DATA", payload: listOfQuizzes });
+      dispatch({ type: "SET_LOADING" });
+    } catch (error) {
+      console.log(error);
+    }
   }
-  
   useEffect(() => {
     loginStatus && getData();
   }, [loginStatus]);

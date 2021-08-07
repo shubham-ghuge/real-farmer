@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useQuizContext } from "../../contexts/QuizContext";
 import { postQuizResult } from "../../services/user.service";
 
 export default function Result() {
-  const { quizId } = useParams();
+  const { state }: any = useLocation();
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const {
     initialState: { userAnswers, quizQuestions, score },
@@ -12,18 +12,19 @@ export default function Result() {
   } = useQuizContext();
   let navigate = useNavigate();
   const questionCopy = quizQuestions;
-  
-  async function postResult() {
+
+  async function postResult(quizId: string) {
     await postQuizResult((score / (quizQuestions.length * 5)) * 100, quizId);
   }
 
   useEffect(() => {
-    postResult();
+    postResult(state.from);
   }, []);
 
   userAnswers.map((item) => {
     return (questionCopy[item.question].options[item.answer].isSelected = true);
   });
+
   useEffect(() => {
     userAnswers.map(
       (item) =>
@@ -47,7 +48,7 @@ export default function Result() {
           <h2>Your Score:</h2>
           <div className="score">
             <span className="count">
-              {((score / (quizQuestions.length * 5)) * 100).toFixed(2)}%
+              {((score / (quizQuestions.length * 5)) * 100).toFixed(0)}%
             </span>
           </div>
           <p className="markers">selected Option</p>
